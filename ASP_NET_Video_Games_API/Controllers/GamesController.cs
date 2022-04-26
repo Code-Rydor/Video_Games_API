@@ -16,22 +16,27 @@ namespace ASP_NET_Video_Games_API.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetPublishers()
+        public IActionResult GetAllGames()
         {
-            var videoGamePublishers = _context.VideoGames.Select(vg => vg.Publisher).Distinct();
+            var videoGames = _context.VideoGames;
 
-            return Ok(videoGamePublishers);
-        }
-
-        [HttpGet("{pubName}")]
-
-        public IActionResult GetGamesByPublisher(string pubName)
-        {
-            int? maxYear = _context.VideoGames.Select(vg => vg.Year).Max();
-            int? minYear = _context.VideoGames.Select(vg => vg.Year).Min();
-
-            var videoGames = _context.VideoGames.Where(vg => vg.Publisher == pubName);
             return Ok(videoGames);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetGamesById(int id)
+        {
+            var videoGameId = _context.VideoGames.Where(vgi => vgi.Id == id);
+
+            return Ok(videoGameId);
+        }
+
+        //[HttpGet("{rank}")]
+        //public IActionResult GetGamesByRank(int rank)
+        //{
+        //    var videoGameRank = _context.VideoGames.Where(vgr => vgr.Rank == rank);
+
+        //    return Ok(videoGameRank);
+        //}
     }
 }
